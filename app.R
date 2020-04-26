@@ -21,7 +21,7 @@ ui <- fluidPage(
     
     mainPanel(
       plotOutput("scatter"),
-      textOutput("summary")
+      tableOutput("summary")
     )
     
   )
@@ -33,8 +33,8 @@ server <- function(input, output) {
     ggplot()
   })
   
-  output$summary <- renderText({
-    "Hello, friend."
+  output$summary <- renderTable({
+    iris[1,]
   })
   
 }
