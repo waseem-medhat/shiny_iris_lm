@@ -6,8 +6,17 @@ ui <- fluidPage(
   sidebarLayout(
     
     sidebarPanel(
-      selectInput("y", "Dependent/response variable", choices = 1),
-      selectInput("x", "Inependent/explanatory variable", choices = 1)
+      selectInput(
+        "y",
+        "Dependent/response variable",
+        choices = names(iris)[1:4]
+      ),
+      selectInput(
+        "x",
+        "Inependent/explanatory variable",
+        choices = names(iris),
+        selected = "Sepal.Width"
+      )
     ),
     
     mainPanel(
