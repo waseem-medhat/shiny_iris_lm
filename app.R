@@ -44,13 +44,23 @@ server <- function(input, output) {
   })
   
   output$summary <- renderTable({
-    data.frame(
-      intercept = 0,
-      slope = 0,
-      R_squared = 0,
-      F_statistic = 0,
-      F_pvalue = 0
-    )
+    
+    if (input$x == input$y) {
+      NULL
+    } else {
+      
+      iris_lm <- lm(as.formula(paste0(input$y, "~", input$x)), data = iris)
+      
+      data.frame(
+        intercept = coef(iris_lm)[[1]],
+        slope = coef(iris_lm)[[2]],
+        R_squared = summary(iris_lm)$r.squared,
+        F_statistic = summary(iris_lm)$fstatistic[1],
+        F_pvalue = summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]
+      )
+      
+    }
+    
   })
   
   output$error <- renderText({
