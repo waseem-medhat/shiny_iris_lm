@@ -31,7 +31,13 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   output$scatter <- renderPlot({
-    ggplot()
+    if (input$x == input$y) {
+      ggplot()
+    } else {
+      ggplot(NULL, aes(x = iris[,input$x], y = iris[,input$y])) +
+        geom_point() +
+        geom_smooth(method = "lm", se = FALSE)
+    }
   })
   
   output$summary <- renderTable({
