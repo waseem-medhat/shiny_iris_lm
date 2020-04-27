@@ -16,7 +16,8 @@ ui <- fluidPage(
         "Inependent/explanatory variable",
         choices = names(iris),
         selected = "Sepal.Width"
-      )
+      ),
+      textOutput("error")
     ),
     
     mainPanel(
@@ -41,6 +42,10 @@ server <- function(input, output) {
       F_statistic = 0,
       F_pvalue = 0
     )
+  })
+  
+  output$error <- renderText({
+    "Error: the same variable is chosen twice."
   })
   
 }
