@@ -45,7 +45,7 @@ server <- function(input, output) {
   })
   
   output$error <- renderText({
-    "Error: the same variable is chosen twice."
+    ifelse(input$x == input$y, "Error: the same variable is chosen twice.", "")
   })
   
 }
