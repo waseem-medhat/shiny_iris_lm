@@ -34,7 +34,13 @@ server <- function(input, output) {
   })
   
   output$summary <- renderTable({
-    iris[1,]
+    data.frame(
+      intercept = 0,
+      slope = 0,
+      R_squared = 0,
+      F_statistic = 0,
+      F_pvalue = 0
+    )
   })
   
 }
