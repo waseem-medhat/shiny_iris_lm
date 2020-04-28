@@ -61,7 +61,11 @@ server <- function(input, output) {
         virginica_vs_setosa = coef(iris_lm)[[3]],
         R_squared = summary(iris_lm)$r.squared,
         F_statistic = summary(iris_lm)$fstatistic[1],
-        F_pvalue = summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]
+        F_pvalue = ifelse(
+          (p <- summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]) < 0.05,
+          paste0(format(p, digits = 3), "*"),
+          format(p, digits = 3)
+        )
       )
       
     } else {
@@ -73,7 +77,11 @@ server <- function(input, output) {
         slope = coef(iris_lm)[[2]],
         R_squared = summary(iris_lm)$r.squared,
         F_statistic = summary(iris_lm)$fstatistic[1],
-        F_pvalue = summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]
+        F_pvalue = ifelse(
+          (p <- summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]) < 0.05,
+          paste0(format(p, digits = 3), "*"),
+          format(p, digits = 3)
+        )
       )
       
     }
