@@ -1,6 +1,8 @@
 library(shiny)
 library(ggplot2)
 
+theme_set(theme_bw(base_size = 16))
+
 ui <- fluidPage(
   titlePanel("Simple Linear Regression on the Iris dataset"),
   sidebarLayout(
@@ -32,14 +34,16 @@ server <- function(input, output) {
   
   output$scatter <- renderPlot({
     if (input$x == input$y) {
-      ggplot()
+      NULL
     } else if (input$x == "Species") {
       ggplot(NULL, aes(x = iris[,input$x], y = iris[,input$y])) +
-        geom_boxplot()
+        geom_boxplot() +
+        labs(x = input$x, y = input$y)
     } else {
       ggplot(NULL, aes(x = iris[,input$x], y = iris[,input$y])) +
         geom_point() +
-        geom_smooth(method = "lm", se = FALSE)
+        geom_smooth(method = "lm", se = FALSE) +
+        labs(x = input$x, y = input$y)
     }
   })
   
