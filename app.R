@@ -47,6 +47,19 @@ server <- function(input, output) {
     
     if (input$x == input$y) {
       NULL
+    } else if (input$x == "Species") {
+      
+      iris_lm <- lm(as.formula(paste0(input$y, "~", input$x)), data = iris)
+      
+      data.frame(
+        intercept = coef(iris_lm)[[1]],
+        versicolor_vs_setosa = coef(iris_lm)[[2]],
+        virginica_vs_setosa = coef(iris_lm)[[3]],
+        R_squared = summary(iris_lm)$r.squared,
+        F_statistic = summary(iris_lm)$fstatistic[1],
+        F_pvalue = summary(aov(iris_lm))[[1]]$`Pr(>F)`[1]
+      )
+      
     } else {
       
       iris_lm <- lm(as.formula(paste0(input$y, "~", input$x)), data = iris)
