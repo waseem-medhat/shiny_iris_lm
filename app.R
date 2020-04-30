@@ -37,9 +37,12 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   output$scatter <- renderPlot({
-    if (input$x == input$y) {
-      NULL
-    } else if (input$x == "Species") {
+    
+    validate(
+      need(input$x != input$y, "Error: the same variable is chosen twice.")
+    )
+    
+    if (input$x == "Species") {
       ggplot(NULL, aes(x = iris[,input$x], y = iris[,input$y])) +
         geom_boxplot() +
         labs(x = input$x, y = input$y)
