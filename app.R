@@ -22,8 +22,7 @@ ui <- fluidPage(
         "Inependent/explanatory variable",
         choices = names(iris),
         selected = "Sepal.Width"
-      ),
-      textOutput("error")
+      )
     ),
     
     mainPanel(
@@ -52,6 +51,7 @@ server <- function(input, output) {
         geom_smooth(method = "lm", se = FALSE) +
         labs(x = input$x, y = input$y)
     }
+    
   })
   
   output$summary <- renderTable({
@@ -85,10 +85,6 @@ server <- function(input, output) {
       
     }
     
-  })
-  
-  output$error <- renderText({
-    ifelse(input$x == input$y, "Error: the same variable is chosen twice.", "")
   })
   
 }
